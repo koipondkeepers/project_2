@@ -1,6 +1,7 @@
 module Sinatra
   class Server < Sinatra::Base
     db = PG.connect(dbname: 'project_2')
+
     get "/" do
       @projects = db.exec("SELECT * FROM projects")
       erb :index
@@ -12,6 +13,12 @@ module Sinatra
       erb :project
     end
 
+    post '/projects' do
+      @comment = params[:comment]
+      db.exec_params("INSERT INTO comments (project_id, content) VALUES($1,$2)", [@title,@comment])
+      erb :project
+    end
+
     get "/makeProject" do
       erb :makeProject
     end
@@ -19,12 +26,10 @@ module Sinatra
     post '/makeProject' do
       @title = params[:title]
       @description = params[:description]
-      @url = params[:url]
-
+      @url = "http://#{params[:url]}"
       db.exec_params("INSERT INTO projects (title, description, url) VALUES($1,$2,$3)", [@title,@description,@url])
       @submitted = true
       erb :makeProject
-
     end
 
 
