@@ -1,1 +1,17 @@
-"Hello World."
+<u><h1>Welcome to StackChan</h1></u>
+
+<h2>Click on a project to go to the thread.</h2>
+<h2>Or, make a project <a href="/makeProject">here!</a></h2>
+
+
+<u><h4>Forums</h4></u>
+<ul>
+<% @projects.each do |project| %>
+  <li>
+  <a href="/projects/<%= project["id"] %>">
+    <%= project["title"]%>
+  </a>
+  </li>
+  <% end %>
+</ul>
+

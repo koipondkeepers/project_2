@@ -1,0 +1,27 @@
+<% if @submitted %>
+<p class = "project-submitted">Thanks for the submission, fam. Now redirecting...</p>
+<meta http-equiv="refresh" content="2; URL='/'" />
+<%else%>
+<div class = "projectform">
+
+  <div class = "row">
+    <form class="project" action="/makeProject" method="post">
+
+      <div class="six columns">
+        <label for="title">Title:</label>
+        <input class="u-full-width" type="text" name="title"/>
+      </div>
+
+      <div class="six columns">
+        <label for="url">Link to Project:</label>
+        <input class="u-full-width" type="text" placeholder="www.example.com" name="url"/>
+      </div>
+  </div>
+
+  <label for="description">Description: </label>
+  <textarea class="u-full-width" placeholder="Describe your project." name="description"></textarea>
+  <input class="button-primary" type="submit" value="Send">
+
+    </form>
+</div>
+<%end%>
