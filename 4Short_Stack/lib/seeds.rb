@@ -35,7 +35,7 @@ db.exec("CREATE TABLE projects(
 db.exec("CREATE TABLE comments(
      project_id INTEGER REFERENCES projects(id),
      id SERIAL PRIMARY KEY,
-     content VARCHAR NOT NULL
+     content TEXT NOT NULL
    )")
 
 
