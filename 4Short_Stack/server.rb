@@ -9,7 +9,7 @@ module Sinatra
       comments = db.exec("SELECT * FROM comments")
       @comments = comments.to_a
 
-      binding.pry
+      # binding.pry
       erb :index
     end
 
