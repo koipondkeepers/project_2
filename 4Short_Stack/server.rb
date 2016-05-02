@@ -10,13 +10,16 @@ module Sinatra
     get "/projects/:id" do
       @id = params[:id]
       @project = db.exec("SELECT * FROM projects WHERE id=#{@id}").first
+      @comments = db.exec("SELECT * FROM comments WHERE project_id=#{@id}")
       erb :project
     end
 
-    post '/projects' do
+    post '/comments' do
       @comment = params[:comment]
-      db.exec_params("INSERT INTO comments (project_id, content) VALUES($1,$2)", [@title,@comment])
-      erb :project
+      @project_id = params[:project_id].to_i
+      db.exec_params("INSERT INTO comments (project_id, content) VALUES($1,$2)", [@project_id,@comment])
+      redirect to ("/projects/#{@project_id}")
+      #erb :project
     end
 
     get "/makeProject" do

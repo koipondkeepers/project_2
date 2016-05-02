@@ -1,5 +1,5 @@
+<h6 align="right"><a href="/">Back to Project Listings</a></h6>
 <u><h2>Project: <%= @project["title"]%></h2></u>
-
 <div>
 <u><h5>Details:</h5></u>
 <li><a href="<%= @project["url"]%>">Project Link</a></li>
@@ -7,9 +7,23 @@
 </div>
 
 <!-- put in comments later -->
-<form class="comment" action="/projects" method="post">
+<form class="comment" action="/comments" method="post">
 
 <label for="description">Comment: </label>
-  <textarea class="u-half-width" placeholder="Write your comment here." name="comment"></textarea><br>
+  <textarea class="u-full-width" placeholder="Write your comment here." name="comment"></textarea><br>
+  <input type="hidden" name="project_id" value="<%=@id%>"></input>
   <input class="button-primary" type="submit" value="comment!">
 </form>
+
+<hr>
+
+<u><h3>Comments:</h3></u>
+
+<ul>
+<% @comments.each do |comment| %>
+  <li>
+    <%= comment["content"]%>
+  </li>
+  <% end %>
+</ul>
+</html>
