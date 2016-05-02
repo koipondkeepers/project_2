@@ -6,9 +6,10 @@ module Sinatra
     get "/" do
       @id = params[:id].to_i
       @projects = db.exec("SELECT * FROM projects ORDER BY votes DESC")
-      @comments = db.exec("SELECT * FROM comments").to_a
+      comments = db.exec("SELECT * FROM comments")
+      @comments = comments.to_a
 
-      # binding.pry
+      binding.pry
       erb :index
     end
 
@@ -50,14 +51,14 @@ module Sinatra
 
     def db
         if ENV["RACK_ENV"] == "production"
-            PG.connect(
+            @db ||= PG.connect(
                 dbname: ENV["POSTGRES_DB"],
                 host: ENV["POSTGRES_HOST"],
                 password: ENV["POSTGRES_PASS"],
                 user: ENV["POSTGRES_USER"]
              )
         else
-            PG.connect(dbname: "project_2")
+            @db ||= PG.connect(dbname: "project_2")
         end
     end
 
