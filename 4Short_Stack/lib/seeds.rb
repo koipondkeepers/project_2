@@ -3,7 +3,18 @@ require 'pg'
 require 'pry'
 
 
-db = PG.connect(dbname: "project_2")
+    def db
+        if ENV["RACK_ENV"] == "production"
+            PG.connect(
+                dbname: ENV["POSTGRES_DB"],
+                host: ENV["POSTGRES_HOST"],
+                password: ENV["POSTGRES_PASS"],
+                user: ENV["POSTGRES_USER"]
+             )
+        else
+            PG.connect(dbname: "project_2")
+        end
+    end
 
 
 

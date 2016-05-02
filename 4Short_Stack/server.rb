@@ -2,7 +2,6 @@ require "pry"
 
 module Sinatra
   class Server < Sinatra::Base
-    db = PG.connect(dbname: 'project_2')
 
     get "/" do
       @id = params[:id].to_i
@@ -49,7 +48,7 @@ module Sinatra
       erb :makeProject
     end
 
-    def conn
+    def db
         if ENV["RACK_ENV"] == "production"
             PG.connect(
                 dbname: ENV["POSTGRES_DB"],
