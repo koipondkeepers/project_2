@@ -7,6 +7,13 @@ module Sinatra
       erb :index
     end
 
+    post "/votes" do
+      @id = params[:id].to_i
+      @votes = params[:votes].to_i + 1
+      db.exec("UPDATE projects SET votes =#{@votes} WHERE id = #{@id}").first
+      redirect to ("/")
+    end
+
     get "/projects/:id" do
       @id = params[:id]
       @project = db.exec("SELECT * FROM projects WHERE id=#{@id}").first
@@ -14,7 +21,7 @@ module Sinatra
       erb :project
     end
 
-    post '/comments' do
+    post "/comments" do
       @comment = params[:comment]
       @project_id = params[:project_id].to_i
       db.exec_params("INSERT INTO comments (project_id, content) VALUES($1,$2)", [@project_id,@comment])
@@ -26,7 +33,7 @@ module Sinatra
       erb :makeProject
     end
 
-    post '/makeProject' do
+    post "/makeProject" do
       @title = params[:title]
       @description = params[:description]
       @url = "http://#{params[:url]}"

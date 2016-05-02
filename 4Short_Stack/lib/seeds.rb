@@ -29,6 +29,7 @@ db.exec("CREATE TABLE projects(
      id SERIAL PRIMARY KEY,
      title VARCHAR NOT NULL,
      description TEXT NOT NULL,
+     votes INTEGER NOT NULL DEFAULT 0,
      url VARCHAR
    )")
 
@@ -39,9 +40,8 @@ db.exec("CREATE TABLE comments(
    )")
 
 
-db.exec("CREATE TABLE votes(
-     comment_id INTEGER REFERENCES comments(id),
-     project_id INTEGER REFERENCES projects(id),
-     id SERIAL PRIMARY KEY,
-     value VARCHAR NOT NULL
-   )")
+# db.exec("CREATE TABLE votes(
+#      project_id INTEGER REFERENCES projects(id),
+#      id SERIAL PRIMARY KEY,
+#      value VARCHAR NOT NULL
+#    )")

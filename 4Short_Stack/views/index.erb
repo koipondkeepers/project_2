@@ -9,8 +9,13 @@
 <% @projects.each do |project| %>
   <li>
   <a href="/projects/<%= project["id"] %>">
-    <%= project["title"]%>
+    Project: <%= project["title"]%>
   </a>
+   <form class="votes" action="/votes" method="post">
+       <input type="hidden" name="votes" value="<%=@votes%>"></input>
+       <input type='submit' value='Vote me up!'>
+     </form>
+
   </li>
   <% end %>
 </ul>
