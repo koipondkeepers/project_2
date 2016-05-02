@@ -1,16 +1,23 @@
+require "pry"
+
 module Sinatra
   class Server < Sinatra::Base
     db = PG.connect(dbname: 'project_2')
 
     get "/" do
-      @projects = db.exec("SELECT * FROM projects")
+      @id = params[:id].to_i
+      @projects = db.exec("SELECT * FROM projects ORDER BY votes DESC")
+      @comments = db.exec("SELECT * FROM comments").to_a
+
+      # binding.pry
       erb :index
     end
 
     post "/votes" do
       @id = params[:id].to_i
-      @votes = params[:votes].to_i + 1
-      db.exec("UPDATE projects SET votes =#{@votes} WHERE id = #{@id}").first
+      # @votes = params[:votes].to_i + 1
+      db.exec("UPDATE projects SET votes = votes + 1 WHERE id = #{@id}").first
+      # binding.pry
       redirect to ("/")
     end
 

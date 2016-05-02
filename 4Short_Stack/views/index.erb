@@ -12,10 +12,10 @@
     Project: <%= project["title"]%>
   </a>
    <form class="votes" action="/votes" method="post">
-       <input type="hidden" name="votes" value="<%=@votes%>"></input>
+       <input type="hidden" name="id" value="<%=project["id"]%>"></input>
        <input type='submit' value='Vote me up!'>
      </form>
-
+     <h6>Comments: <%= @comments.select{|key, value| key.to_s.match(project["id"])}.count %></h6>
   </li>
   <% end %>
 </ul>
