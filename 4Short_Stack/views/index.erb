@@ -6,17 +6,23 @@
 
 <u><h4>Projects</h4></u>
 <ul>
-<% @projects.each do |project| %>
-  <li>
-  <a href="/projects/<%= project["id"] %>">
-    Project: <%= project["title"]%>
-  </a>
-   <form class="votes" action="/votes" method="post">
-       <input type="hidden" name="id" value="<%=project["id"]%>"></input>
-       <input type='submit' value='Vote me up!'>
-     </form>
-     <h6>Comments: <%= @comments.select{|key, value| key.to_s.match(project["id"])}.count %></h6>
-  </li>
+  <% @projects.each do |project| %>
+    <li>
+      <a href="/projects/<%= project["id"] %>">
+        Project: <%= project["title"]%>
+      </a>
+
+      <form class="votes" action="/votes" method="post">
+           <input type="hidden" name="id" value="<%=project["id"]%>"></input>
+           <input type='submit' value='Vote me up!'>
+      </form>
+
+      <% count = 0 %>
+       <% @comments.each do |comment| %>
+        <% count += 1 if comment['project_id'] == project['id'] %>
+       <% end %>
+       Total Comments: <%= count %>
+    </li>
   <% end %>
 </ul>
 

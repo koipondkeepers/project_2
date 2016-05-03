@@ -6,8 +6,8 @@ module Sinatra
     get "/" do
       @id = params[:id].to_i
       @projects = db.exec("SELECT * FROM projects ORDER BY votes DESC")
-      comments = db.exec("SELECT * FROM comments")
-      @comments = comments.to_a
+      @comments = db.exec("SELECT * FROM comments")
+     # @comments = comments.to_a
 
       # binding.pry
       erb :index
